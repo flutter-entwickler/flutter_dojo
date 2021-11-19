@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dojo/category/backend/providercategory.dart';
@@ -11,6 +12,16 @@ import 'package:flutter_dojo/pages/splash/slpash.dart';
 import 'package:provider/provider.dart';
 
 import 'category/backend/pageroute.dart';
+
+class TouchAndMouseScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +71,7 @@ class MyApp extends StatelessWidget {
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
     return MaterialApp(
+      scrollBehavior: TouchAndMouseScrollBehavior(),
       title: 'Flutter Dojo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
